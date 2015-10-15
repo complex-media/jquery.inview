@@ -1,4 +1,4 @@
-h1. Element 'inview' Event Plugin
+# Element 'inview' Event Plugin ![](https://ga-beacon.appspot.com/UA-68899481-1/jquery.inview/readme?pixel)
 
 Event that is fired as soon as an element appears in the user's viewport.
 
@@ -8,7 +8,7 @@ Event that is fired as soon as an element appears in the user's viewport.
 *Demo* (loading lolcats when they scroll into view): "http://tifftiff.de/jquery.inview/example/live_event.html":http://tifftiff.de/jquery.inview/example/live_event.html
 *Requires:* jQuery 1.4+
 
-h2. Usage
+## Usage
 
 The script makes use of the new $.contains method - so it will only work with jQuery 1.4 upwards. If you need to use it with older versions of jQuery, drop a comment, and I'll post an alternative.
 
@@ -18,7 +18,8 @@ The variable after the event argument indicates the visible state in the viewpor
 The third variable visiblePartX detects which horizontal part of the element is visible to the user (possible values: left, right, both)
 The fourth variable visiblePartY detects which vertical part of the element is visible to the user (possible values: top, bottom, both)
 
-bc.. $('div').bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
+```
+$('div').bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
   if (isInView) {
     // element is now visible in the viewport
     if (visiblePartY == 'top') {
@@ -32,52 +33,63 @@ bc.. $('div').bind('inview', function(event, isInView, visiblePartX, visiblePart
     // element has gone out of viewport
   }
 });
+```
 
-p. To stop listening for the event - simply unbind:
+To stop listening for the event - simply unbind:
 
-bc.. $('div').unbind('inview');
+```
+$('div').unbind('inview');
+```
 
-p. Remember you can also bind once:
+Remember you can also bind once:
 
-bc.. $('div').one('inview', fn);
+```
+$('div').one('inview', fn);
+```
 
 
+### Offset Feature
 
-h3. Offset Feature
-
-p. If you decide to use this code for lazy loading images, you might be interested
+If you decide to use this code for lazy loading images, you might be interested
 in preloading the image when it's getting close to entering the viewport. To
 do this, you can now add a `data-offset` attribute to your target element.
 For example:
 
-bc.. <img data-offset="300">
+```
+<img data-offset="300">
+```
 
-p. or in JavaScript:
+or in JavaScript:
 
-bc.. $('img').attr('data-offset', 300);
+```
+$('img').attr('data-offset', 300);
+```
 
-p. This allows the image to preload as it approaches the viewport so there's a
+This allows the image to preload as it approaches the viewport so there's a
 better chance it will complete before the user even sees it.
 
-h2. Live events
+## Live events
 
 Yep, inview events can also be used with .live/.delegate methods.
 _Please note that this could slow down your app when the selector is too complex and/or matches a huge set of elements._
 The following code snippet only loads images when they appear in the browser's viewport.
 
-bc..  // Assuming that all images have set the 'data-src' attribute instead of the 'src'attribute
-  $("img[data-src]").live("inview", function() {
-    var $this = $(this);
-    $this.attr("src", $this.attr("data-src"));
-    // Remove it from the set of matching elements in order to avoid that the handler gets re-executed
-    $this.removeAttr("data-src");
-  });
+```
+// Assuming that all images have set the 'data-src' attribute instead of the 'src'attribute
+$("img[data-src]").live("inview", function() {
+  var $this = $(this);
+  $this.attr("src", $this.attr("data-src"));
+  // Remove it from the set of matching elements in order to avoid that the handler gets re-executed
+  $this.removeAttr("data-src");
+});
+```
 
-h2. More complex example
+## More complex example
 
 This way we can attach inview to some DIV in our code to, for example, detect when it FULLY readed by user (user sees it's bottom and top) and only after 1 seconds of view, so after we call some out stats function or whatever
 
-bc.. $(someMyOneDiv).bind('inview', function(e, isInView, visiblePartX, visiblePartY) {
+```
+$(someMyOneDiv).bind('inview', function(e, isInView, visiblePartX, visiblePartY) {
   var elem = $(this);
 
   if (elem.data('inviewtimer')) {
@@ -104,8 +116,9 @@ bc.. $(someMyOneDiv).bind('inview', function(e, isInView, visiblePartX, visibleP
     }, 1000));
   }
 });
+```
 
-h2. How it works
+## How it works
 
 An interval in the background checks the position of the elements against the viewport dimensions and the scroll position.
 
@@ -115,16 +128,16 @@ This is achieved by dipping in to the $.cache store within jQuery, and looping t
 
 This way the user can treat it like a native event on the page.
 
-h2. Use cases
+## Use cases
 
 * Reduce http requests and traffic on server by loading assets (images, javascript, html, ...) only when they are visible to the user
 * Endless scrolling (twitter-like)
 * Tracking (eg. to see whether a user has read an entire article)
 * ...
 
-h2. Browser Compatibility
+## Browser Compatibility
 
-h4. The Test Suite succeeds in the following browsers that were tested:
+#### The Test Suite succeeds in the following browsers that were tested:
 
 * Firefox 3+
 * Safari 3+
@@ -135,7 +148,7 @@ h4. The Test Suite succeeds in the following browsers that were tested:
 * Fennec 4b on Android 2.2
 * Opera Mobile 10.1b on Android 2.2
 
-h4. The Test Suite doesn't completely succeed but the demos in this repository work without problems in the following browsers:
+#### The Test Suite doesn't completely succeed but the demos in this repository work without problems in the following browsers:
 
 * Mobile WebKit on Android 2.2
 * Mobile WebKit on Palm Pre 1
